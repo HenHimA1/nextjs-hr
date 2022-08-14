@@ -16,7 +16,7 @@ export default function CreateEmployee() {
     age: "",
     address: "",
   });
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
 
   const handleClickSave = (event) => {
     event.preventDefault();
@@ -56,7 +56,7 @@ export default function CreateEmployee() {
 
           <form
             onSubmit={(event) => handleClickSave(event)}
-            className="px-2 pt-2 bg-white rounded-lg" 
+            className="px-2 pt-2 bg-white rounded-lg"
           >
             <InputTextField
               label="Name"

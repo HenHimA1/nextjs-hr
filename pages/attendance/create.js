@@ -57,7 +57,7 @@ export default function CreateAttendance() {
 
           <form
             onSubmit={(event) => handleClickSave(event)}
-            className="px-2 pt-2 bg-white"
+            className="px-2 pt-2 bg-white rounded-lg"
           >
             <InputSelectField
               className="grid-cols-2"

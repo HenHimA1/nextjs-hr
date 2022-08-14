@@ -1,4 +1,4 @@
-import { TrashIcon, XIcon, SaveAsIcon } from "@heroicons/react/solid";
+import { XIcon, SaveAsIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -65,7 +65,7 @@ export default function EditAttendance() {
 
           <form
             onSubmit={(event) => handleClickSave(event)}
-            className="px-2 pt-2 bg-white"
+            className="px-2 pt-2 bg-white rounded-lg"
           >
             <InputSelectField
               className="grid-cols-2"

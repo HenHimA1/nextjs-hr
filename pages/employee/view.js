@@ -54,7 +54,7 @@ export default function ViewEmployee() {
             </h1>
           </div>
 
-          <div className="px-2 pt-2 bg-white">
+          <div className="px-2 pt-2 bg-white rounded-lg">
             <SpanTextField label="Name" value={employeeData.name} />
             <SpanTextField label="Position" value={employeeData.position} />
             <SpanTextField label="Age" value={employeeData.age} />

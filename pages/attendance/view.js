@@ -56,7 +56,7 @@ export default function ViewAttendance() {
             </h1>
           </div>
 
-          <div className="px-2 pt-2 bg-white">
+          <div className="px-2 pt-2 bg-white rounded-lg">
             <SpanTextField
               label="Employee"
               value={

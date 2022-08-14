@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
-import { PlusCircleIcon, SearchIcon } from "@heroicons/react/solid";
+import { PlusCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";

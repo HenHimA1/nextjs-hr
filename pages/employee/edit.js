@@ -62,7 +62,7 @@ export default function EditEmployee() {
             </h1>
           </div>
 
-          <form onSubmit={handleClickSave} className="px-2 pt-2 bg-white">
+          <form onSubmit={handleClickSave} className="px-2 pt-2 bg-white rounded-lg">
             <InputTextField
               label="Name"
               name="name"
