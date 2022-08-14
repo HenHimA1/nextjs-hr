@@ -20,8 +20,8 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen w-screen bg-gray-100 flex justify-center items-center">
-      <form className="bg-white text-gray-500 p-5 rounded-3xl" onSubmit={handleSubmit}>
+    <div className="bg-gray-100 h-screen w-screen flex justify-center items-center">
+      <form className="bg-white text-gray-500 p-3 m-2 md:w-auto rounded-xl" onSubmit={handleSubmit}>
         <h1 className="mb-2 text-2xl">Login</h1>
         <InputTextField
           label="Username"
@@ -30,6 +30,7 @@ export default function Login() {
           required="required"
           value={loginForm.username}
           onChange={handleChange}
+          className="grid-cols-1"
         />
         <InputTextField
           label="Password"
@@ -38,6 +39,7 @@ export default function Login() {
           required="required"
           value={loginForm.password}
           onChange={handleChange}
+          className="grid-cols-1"
         />
         <div className="flex justify-between">
           <button className="p-2 rounded bg-gray-500 text-white" type="submit">
