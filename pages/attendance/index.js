@@ -25,15 +25,15 @@ export default function Attendance() {
           <div className="md:px-2 mb-2 flex md:items-center flex-col md:flex-row justify-between gap-2">
             <h1 className="text-xl text-gray-500">Attendance</h1>
             <div className="flex">
-            <Link href="/attendance/create">
-              <button
-                type="button"
-                className="flex items-center bg-white rounded-md p-2 text-gray-500 hover:text-white hover:bg-gray-500"
-              >
-                <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
-                Add
-              </button>
-            </Link>
+              <Link href="/attendance/create">
+                <button
+                  type="button"
+                  className="flex px-2 py-1 items-center bg-white rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                >
+                  <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
+                  Add
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -61,7 +61,16 @@ export default function Attendance() {
                       onClick={() => handleRecordClick(attendance.id)}
                     >
                       <td className="p-2 text-gray-500">{index + 1}</td>
-                      <td className="p-2 text-gray-500">{attendance.name}</td>
+                      <td className="p-2 text-gray-500">
+                        {state.employees.find(
+                          (employee) =>
+                            employee.id === parseInt(attendance.employee)
+                        ) &&
+                          state.employees.find(
+                            (employee) =>
+                              employee.id === parseInt(attendance.employee)
+                          ).name}
+                      </td>
                       <td className="p-2 text-gray-500">{attendance.date}</td>
                       <td className="p-2 text-gray-500">
                         {attendance.check_in}

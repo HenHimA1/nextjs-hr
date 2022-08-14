@@ -14,6 +14,7 @@ export default function ViewEmployee() {
     name: "",
     position: "",
     age: "",
+    address: "",
   });
   const { state, dispatch } = useAppContext();
 
@@ -51,10 +52,18 @@ export default function ViewEmployee() {
               </Link>{" "}
               | {employeeData.id}
             </h1>
-            <div className="flex gap-2">
+          </div>
+
+          <div className="px-2 pt-2 bg-white">
+            <SpanTextField label="Name" value={employeeData.name} />
+            <SpanTextField label="Position" value={employeeData.position} />
+            <SpanTextField label="Age" value={employeeData.age} />
+            <SpanTextField label="Address" value={employeeData.address} />
+
+            <div className="flex gap-2 pb-2">
               <button
                 type="button"
-                className="flex items-center bg-white rounded-md p-2 text-gray-500 hover:text-white hover:bg-gray-500"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
                 onClick={() => handleClickEdit()}
               >
                 <PencilIcon className="w-5 h-5 mr-2 inline" />
@@ -62,19 +71,13 @@ export default function ViewEmployee() {
               </button>
               <button
                 type="button"
-                className="flex items-center bg-white rounded-md p-2 text-gray-500 hover:text-white hover:bg-gray-500"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
                 onClick={() => handleClickDelete()}
               >
                 <TrashIcon className="w-5 h-5 mr-2 inline" />
                 Delete
               </button>
             </div>
-          </div>
-
-          <div className="px-2 pt-2 bg-white">
-            <SpanTextField label="Name" value={employeeData.name} />
-            <SpanTextField label="Position" value={employeeData.position} />
-            <SpanTextField label="Age" value={employeeData.age} />
           </div>
         </div>
       </div>

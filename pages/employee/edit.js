@@ -1,4 +1,4 @@
-import { TrashIcon, PencilIcon, SaveAsIcon } from "@heroicons/react/solid";
+import { XIcon, SaveAsIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,12 +14,14 @@ export default function EditEmployee() {
     name: "",
     position: "",
     age: "",
+    address: "",
   });
   const { state, dispatch } = useAppContext();
 
   const { id } = router.query;
 
-  const handleClickSave = () => {
+  const handleClickSave = (event) => {
+    event.preventDefault();
     dispatch({ type: "updateEmployee", payload: employeeData });
     router.push(`/employee/view?id=${id}`);
   };
@@ -58,33 +60,16 @@ export default function EditEmployee() {
               </Link>{" "}
               | {employeeData.id}
             </h1>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                className="flex items-center bg-white rounded-md p-2 text-gray-500 hover:text-white hover:bg-gray-500"
-                onClick={() => handleClickSave()}
-              >
-                <SaveAsIcon className="w-5 h-5 mr-2 inline" />
-                Save
-              </button>
-              <button
-                type="button"
-                className="flex items-center bg-white rounded-md p-2 text-gray-500 hover:text-white hover:bg-gray-500"
-                onClick={() => handleClickDiscard()}
-              >
-                <TrashIcon className="w-5 h-5 mr-2 inline" />
-                Discard
-              </button>
-            </div>
           </div>
 
-          <div className="px-2 pt-2 bg-white">
+          <form onSubmit={handleClickSave} className="px-2 pt-2 bg-white">
             <InputTextField
               label="Name"
               name="name"
               onChange={handleChange}
               value={employeeData.name}
               className="grid-cols-2"
+              required="required"
             />
             <InputTextField
               label="Position"
@@ -92,6 +77,7 @@ export default function EditEmployee() {
               onChange={handleChange}
               value={employeeData.position}
               className="grid-cols-2"
+              required="required"
             />
             <InputTextField
               label="Age"
@@ -100,7 +86,31 @@ export default function EditEmployee() {
               value={employeeData.age}
               className="grid-cols-2"
             />
-          </div>
+            <InputTextField
+              label="Address"
+              name="address"
+              onChange={handleChange}
+              value={employeeData.address}
+              className="grid-cols-2"
+            />
+            <div className="flex gap-2 pb-2">
+              <button
+                type="submit"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+              >
+                <SaveAsIcon className="w-5 h-5 mr-2 inline" />
+                Save
+              </button>
+              <button
+                type="button"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                onClick={() => handleClickDiscard()}
+              >
+                <XIcon className="w-5 h-5 mr-2 inline" />
+                Discard
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

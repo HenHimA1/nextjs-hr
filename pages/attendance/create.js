@@ -1,25 +1,32 @@
+import { XIcon, SaveAsIcon } from "@heroicons/react/solid";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import InputSelectField from "../../components/InputSelectField";
+import InputTextField from "../../components/InputTextField";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
-import InputTextField from "../../components/InputTextField";
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function CreateAttendance() {
   const router = useRouter();
-  const { dispatch } = useAppContext();
   const [attendanceData, setAttendanceData] = useState({
     id: Date.now(),
-    name: "",
+    employee: "",
     date: "",
     check_in: "",
     check_out: "",
   });
+  const { state, dispatch } = useAppContext();
 
-  const handleSubmit = (event) => {
+  const handleClickSave = (event) => {
     event.preventDefault();
     dispatch({ type: "addAttendance", payload: attendanceData });
-    router.push("/attendance");
+    router.push(`/attendance/view?id=${attendanceData.id}`);
+  };
+
+  const handleClickDiscard = () => {
+    router.push(`/attendance`);
   };
 
   const handleChange = (e) => {
@@ -30,55 +37,83 @@ export default function CreateAttendance() {
   };
 
   return (
-    <div className="bg-gray-100 w-screen h-screen">
-      <Navbar />
+    <>
+      <Head>
+        <title>My Present | Attendance</title>
+        <meta name="description" content="Access attendance" />
+      </Head>
+      <div className="bg-gray-100 w-screen h-screen">
+        <Navbar />
 
-      <form onSubmit={handleSubmit} className="p-5 m-5 bg-white">
-        <h1 className="text-xl mb-2">Create Attendance</h1>
-        <InputTextField
-          label="Name"
-          name="name"
-          required="required"
-          onChange={handleChange}
-          value={attendanceData.name}
-        />
-        <InputTextField
-          label="Date"
-          name="date"
-          required="required"
-          type="date"
-          onChange={handleChange}
-          value={attendanceData.date}
-        />
-        <InputTextField
-          label="Check in"
-          name="check_in"
-          required="required"
-          type="time"
-          onChange={handleChange}
-          value={attendanceData.check_in}
-        />
-        <InputTextField
-          label="Check out"
-          name="check_out"
-          type="time"
-          onChange={handleChange}
-          value={attendanceData.check_out}
-        />
-        <div className="flex">
-          <button
-            className="bg-gray-500 p-2 mr-2 rounded text-white"
-            type="submit"
+        <div className="p-5 md:mx-5">
+          <div className="md:px-2 mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+            <h1 className="text-xl text-gray-500">
+              <Link href={"/attendance"}>
+                <a className="underline">Attendance</a>
+              </Link>{" "}
+              | Create Attendance
+            </h1>
+          </div>
+
+          <form
+            onSubmit={(event) => handleClickSave(event)}
+            className="px-2 pt-2 bg-white"
           >
-            Create
-          </button>
-          <Link href={`/attendance`}>
-            <a className="text-gray-500 p-2 mr-2 rounded border border-gray-500">
-              Discard
-            </a>
-          </Link>
+            <InputSelectField
+              className="grid-cols-2"
+              label="Employee"
+              name="employee"
+              onChange={handleChange}
+              value={attendanceData.employee}
+              listOption={state.employees}
+              required="required"
+            />
+            <InputTextField
+              label="Date"
+              name="date"
+              required="required"
+              type="date"
+              onChange={handleChange}
+              value={attendanceData.date}
+              className="grid-cols-2"
+            />
+            <InputTextField
+              label="Check in"
+              name="check_in"
+              required="required"
+              type="time"
+              onChange={handleChange}
+              value={attendanceData.check_in}
+              className="grid-cols-2"
+            />
+            <InputTextField
+              label="Check out"
+              name="check_out"
+              type="time"
+              onChange={handleChange}
+              value={attendanceData.check_out}
+              className="grid-cols-2"
+            />
+            <div className="flex pb-2 gap-2">
+              <button
+                type="submit"
+                className="p-2 flex items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+              >
+                <SaveAsIcon className="w-5 h-5 mr-2 inline" />
+                Save
+              </button>
+              <button
+                type="button"
+                className="p-2 flex items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                onClick={() => handleClickDiscard()}
+              >
+                <XIcon className="w-5 h-5 mr-2 inline" />
+                Discard
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }
