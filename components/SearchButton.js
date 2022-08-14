@@ -1,9 +1,6 @@
 import { SearchIcon } from "@heroicons/react/solid";
-import { useState } from "react";
 
-export default function SearchButton() {
-  const [search, setSearch] = useState("");
-
+export default function SearchButton({ search, setSearch }) {
   const handleSubmit = (event) => {
     event.stopPropagation();
     event.preventDefault();

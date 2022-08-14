@@ -5,14 +5,26 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import SearchButton from "../../components/SearchButton";
+import { useEffect, useState } from "react";
 
 export default function Employee() {
   const router = useRouter();
   const { state } = useAppContext();
 
+  const [search, setSearch] = useState("");
+  const [employees, setEmployees] = useState([]);
+
   const handleRecordClick = (id) => {
     router.push(`/employee/view?id=${id}`);
   };
+
+  useEffect(() => {
+    setEmployees(
+      state.employees.filter((employee) =>
+        employee.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search, state]);
 
   return (
     <>
@@ -26,7 +38,7 @@ export default function Employee() {
           <div className="md:px-2 mb-2 flex md:items-center flex-col md:flex-row justify-between gap-2">
             <h1 className="text-xl text-gray-500">Employee</h1>
             <div className="flex flex-wrap gap-2">
-              <SearchButton />
+              <SearchButton search={search} setSearch={setSearch} />
               <Link href="/employee/create">
                 <button
                   type="button"
@@ -50,7 +62,7 @@ export default function Employee() {
                 </tr>
               </thead>
               <tbody>
-                {state.employees.map((employee, index) => {
+                {employees.map((employee, index) => {
                   return (
                     <tr
                       className={`border ${
