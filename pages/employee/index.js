@@ -1,9 +1,10 @@
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
-import { PlusCircleIcon, TrashIcon, PencilIcon } from "@heroicons/react/solid";
+import { PlusCircleIcon, SearchIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import SearchButton from "../../components/SearchButton";
 
 export default function Employee() {
   const router = useRouter();
@@ -24,7 +25,8 @@ export default function Employee() {
         <div className="p-5 md:mx-5">
           <div className="md:px-2 mb-2 flex md:items-center flex-col md:flex-row justify-between gap-2">
             <h1 className="text-xl text-gray-500">Employee</h1>
-            <div className="flex">
+            <div className="flex flex-wrap gap-2">
+              <SearchButton />
               <Link href="/employee/create">
                 <button
                   type="button"
