@@ -69,6 +69,7 @@ export default function ViewAttendance() {
                     employee.id === parseInt(attendanceData.employee)
                 ).name
               }
+              href={`/employee/view?id=${attendanceData.employee}`}
             />
             <SpanTextField label="Date" value={attendanceData.date} />
             <SpanTextField label="Check in" value={attendanceData.check_in} />

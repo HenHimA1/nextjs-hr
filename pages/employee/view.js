@@ -39,7 +39,7 @@ export default function ViewEmployee() {
     <>
       <Head>
         <title>My Present | Employee</title>
-        <meta name="description" content="Access employee" />
+        <meta name="description" content="View employee" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
         <Navbar />
