@@ -39,8 +39,14 @@ export default function EditAttendance() {
   };
 
   useEffect(() => {
-    if (id && state.attendances.find((value) => value.id == id)) {
-      setAttendanceData(state.attendances.find((value) => value.id == id));
+    if (id && state.attendances) {
+      let currentAttendance = state.attendances.find((value) => value.id == id);
+
+      if (currentAttendance) {
+        setAttendanceData(currentAttendance);
+      } else {
+        router.push("/attendance");
+      }
     }
   }, [router, state]);
 

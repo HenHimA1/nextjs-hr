@@ -2,18 +2,19 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import FormEmployee from "../../components/FormEmployee";
+import FormTimeoff from "../../components/FormTimeoff";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 
-export default function EditEmployee() {
+export default function EditTimeoff() {
   const router = useRouter();
-  const [employeeData, setEmployeeData] = useState({
+  const [timeoffData, setTimeoffData] = useState({
     id: "",
-    name: "",
-    position: "",
-    age: "",
-    address: "",
+    employee: "",
+    dateStart: "",
+    dateEnd: "",
+    description: "",
+    approved: false,
   });
   const { state, dispatch } = useAppContext();
 
@@ -21,29 +22,29 @@ export default function EditEmployee() {
 
   const handleClickSave = (event) => {
     event.preventDefault();
-    dispatch({ type: "updateEmployee", payload: employeeData });
-    router.push(`/employee/view?id=${id}`);
+    dispatch({ type: "updateTimeoff", payload: timeoffData });
+    router.push(`/timeoff/view?id=${id}`);
   };
 
   const handleClickDiscard = () => {
-    router.push(`/employee/view?id=${id}`);
+    router.push(`/timeoff/view?id=${id}`);
   };
 
-  const handleChange = (event) => {
-    setEmployeeData({
-      ...employeeData,
-      [event.target.name]: event.target.value,
+  const handleChange = (e) => {
+    setTimeoffData({
+      ...timeoffData,
+      [e.target.name]: e.target.value,
     });
   };
 
   useEffect(() => {
-    if (id && state.employees) {
-      let currentEmployee = state.employees.find((value) => value.id == id);
+    if (id && state.timeoffs) {
+      let currentTimeoff = state.timeoffs.find((value) => value.id == id);
 
-      if (currentEmployee) {
-        setEmployeeData(currentEmployee);
+      if (currentTimeoff) {
+        setTimeoffData(currentTimeoff);
       } else {
-        router.push("/employee");
+        router.push("/timeoff");
       }
     }
   }, [router, state]);
@@ -51,8 +52,8 @@ export default function EditEmployee() {
   return (
     <>
       <Head>
-        <title>My Present | Employee</title>
-        <meta name="description" content="Edit employee" />
+        <title>My Present | Time Off</title>
+        <meta name="description" content="Access timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
         <Navbar />
@@ -60,20 +61,21 @@ export default function EditEmployee() {
         <div className="p-5 md:mx-5">
           <div className="md:px-2 mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
             <h1 className="text-xl text-gray-500">
-              <Link href={"/employee"}>
-                <a className="underline">Employee</a>
+              <Link href={"/timeoff"}>
+                <a className="underline">Time Off</a>
               </Link>{" "}
-              | {employeeData.id}
+              | {timeoffData.id}
             </h1>
           </div>
 
-          <FormEmployee
+          <FormTimeoff
             LabelConfirm="Save"
             LabelDiscard="Cancel"
-            employeeData={employeeData}
+            listEmployee={state.employees}
+            timeoffData={timeoffData}
             handleChange={handleChange}
-            handleClickSave={handleClickSave}
             handleClickDiscard={handleClickDiscard}
+            handleClickSave={handleClickSave}
           />
         </div>
       </div>

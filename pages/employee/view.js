@@ -30,8 +30,14 @@ export default function ViewEmployee() {
   };
 
   useEffect(() => {
-    if (id && state.employees.find((value) => value.id === parseInt(id))) {
-      setEmployeeData(state.employees.find((value) => value.id == id));
+    if (id && state.employees) {
+      let currentEmployee = state.employees.find((value) => value.id == id);
+
+      if (currentEmployee) {
+        setEmployeeData(state.employees.find((value) => value.id == id));
+      } else {
+        router.push("/employee");
+      }
     }
   }, [router, state]);
 

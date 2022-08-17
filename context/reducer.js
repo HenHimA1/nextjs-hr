@@ -69,6 +69,12 @@ export const AppReducer = (state, action) => {
         timeoffs: state.timeoffs,
       };
 
+    case "removeTimeoff":
+      let currentTimeoffs = state.timeoffs.filter(
+        (value) => value.id !== action.payload
+      );
+      return { ...state, timeoffs: currentTimeoffs };
+
     default:
       return state;
   }

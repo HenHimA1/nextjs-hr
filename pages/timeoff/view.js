@@ -1,4 +1,4 @@
-import { TrashIcon, PencilIcon } from "@heroicons/react/solid";
+import { TrashIcon, PencilIcon, CheckIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -21,6 +21,13 @@ export default function ViewTimeoff() {
   const { state, dispatch } = useAppContext();
 
   const { id } = router.query;
+
+  const handleClickApprove = () => {
+    dispatch({
+      type: "updateTimeoff",
+      payload: { ...timeoffData, approved: true },
+    });
+  };
 
   const handleClickEdit = () => {
     router.push(`/timeoff/edit?id=${id}`);
@@ -74,24 +81,36 @@ export default function ViewTimeoff() {
             />
             <SpanBooleanField label="Approved" value={timeoffData.approved} />
 
-            <div className="flex gap-2 pb-2">
-              <button
-                type="button"
-                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
-                onClick={() => handleClickEdit()}
-              >
-                <PencilIcon className="w-5 h-5 mr-2 inline" />
-                Edit
-              </button>
-              <button
-                type="button"
-                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
-                onClick={() => handleClickDelete()}
-              >
-                <TrashIcon className="w-5 h-5 mr-2 inline" />
-                Delete
-              </button>
-            </div>
+            {timeoffData.approved ? (
+              ""
+            ) : (
+              <div className="flex gap-2 pb-2">
+                <button
+                  type="button"
+                  className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                  onClick={() => handleClickApprove()}
+                >
+                  <CheckIcon className="w-5 h-5 mr-2 inline" />
+                  Approve
+                </button>
+                <button
+                  type="button"
+                  className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                  onClick={() => handleClickEdit()}
+                >
+                  <PencilIcon className="w-5 h-5 mr-2 inline" />
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                  onClick={() => handleClickDelete()}
+                >
+                  <TrashIcon className="w-5 h-5 mr-2 inline" />
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

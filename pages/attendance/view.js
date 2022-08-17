@@ -30,10 +30,16 @@ export default function ViewAttendance() {
   };
 
   useEffect(() => {
-    if (id && state.attendances.find((value) => value.id === parseInt(id))) {
-      setAttendanceData(
-        state.attendances.find((value) => value.id === parseInt(id))
+    if (id && state.attendances) {
+      let currentAttendance = state.attendances.find(
+        (value) => value.id === parseInt(id)
       );
+
+      if (currentAttendance) {
+        setAttendanceData(currentAttendance);
+      } else {
+        router.push("/attendance");
+      }
     }
   }, [router, state]);
 
