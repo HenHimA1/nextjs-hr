@@ -1,8 +1,4 @@
-import useAppContext from "../context/state";
-
-export default function ListAttendance() {
-  const { state } = useAppContext();
-
+export default function ListAttendance({ state }) {
   return (
     <table className="bg-gray-200 w-full">
       <thead>
@@ -18,8 +14,7 @@ export default function ListAttendance() {
         {state.attendances
           .sort((start, end) => {
             return (
-              new Date(end.date).getTime() -
-              new Date(start.date).getTime()
+              new Date(end.date).getTime() - new Date(start.date).getTime()
             );
           })
           .map((attendance, index) => {
@@ -32,13 +27,12 @@ export default function ListAttendance() {
               >
                 <td className="p-1 text-left text-gray-700">{index + 1}</td>
                 <td className="p-1 text-left text-gray-700">
-                  {state.employees.find(
-                    (employee) => employee.id === parseInt(attendance.employee)
-                  ) &&
+                  {
                     state.employees.find(
                       (employee) =>
                         employee.id === parseInt(attendance.employee)
-                    ).name}
+                    )?.name
+                  }
                 </td>
                 <td className="p-1 text-left text-gray-700">
                   {attendance.date}

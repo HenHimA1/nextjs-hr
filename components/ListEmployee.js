@@ -1,8 +1,4 @@
-import useAppContext from "../context/state";
-
-export default function ListEmployee() {
-  const { state } = useAppContext();
-
+export default function ListEmployee({ state }) {
   return (
     <table className="bg-gray-200 w-full">
       <thead>
@@ -17,7 +13,9 @@ export default function ListEmployee() {
           return (
             <tr
               key={employee.id}
-              className={`${(index + 1) % 2 == 0 ? "bg-gray-200" : "bg-gray-50"}`}
+              className={`${
+                (index + 1) % 2 == 0 ? "bg-gray-200" : "bg-gray-50"
+              }`}
             >
               <td className="p-1 text-left text-gray-700">{index + 1}</td>
               <td className="p-1 text-left text-gray-700">{employee.name}</td>

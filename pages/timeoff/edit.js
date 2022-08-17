@@ -42,7 +42,11 @@ export default function EditTimeoff() {
       let currentTimeoff = state.timeoffs.find((value) => value.id == id);
 
       if (currentTimeoff) {
-        setTimeoffData(currentTimeoff);
+        if (currentTimeoff.approved) {
+          router.push("/timeoff");
+        } else {
+          setTimeoffData(currentTimeoff);
+        }
       } else {
         router.push("/timeoff");
       }
