@@ -1,10 +1,8 @@
-import { XIcon, SaveAsIcon } from "@heroicons/react/solid";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FormEmployee from "../../components/FormEmployee";
-import InputTextField from "../../components/InputTextField";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 

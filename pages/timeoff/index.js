@@ -1,22 +1,23 @@
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
-import { PlusCircleIcon } from "@heroicons/react/solid";
+import { CheckIcon, PlusCircleIcon, XIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import SearchButton from "../../components/SearchButton";
+import { useEffect, useState } from "react";
+import SpanBooleanField from "../../components/SpanBooleanField";
 
-export default function Attendance() {
+export default function Timeoff() {
   const router = useRouter();
   const { state } = useAppContext();
 
   const [search, setSearch] = useState("");
   const [employees, setEmployees] = useState([]);
-  const [attendances, setAttendances] = useState([]);
+  const [timeoffs, setTimeoffs] = useState([]);
 
   const handleRecordClick = (id) => {
-    router.push(`/attendance/view?id=${id}`);
+    router.push(`/timeoff/view?id=${id}`);
   };
 
   useEffect(() => {
@@ -40,13 +41,14 @@ export default function Attendance() {
   }, [search, state]);
 
   useEffect(() => {
-    setAttendances(
-      state.attendances
-        .filter((attendance) =>
-          employees.includes(parseInt(attendance.employee))
-        )
+    setTimeoffs(
+      state.timeoffs
+        .filter((timeoff) => employees.includes(parseInt(timeoff.employee)))
         .sort((start, end) => {
-          return new Date(end.date).getTime() - new Date(start.date).getTime();
+          return (
+            new Date(end.dateStart).getTime() -
+            new Date(start.dateStart).getTime()
+          );
         })
     );
   }, [employees]);
@@ -54,20 +56,20 @@ export default function Attendance() {
   return (
     <>
       <Head>
-        <title>My Present | Attendance</title>
-        <meta name="description" content="Access attendance" />
+        <title>My Present | Timeoff</title>
+        <meta name="description" content="Access timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
         <Navbar />
         <div className="p-5 md:mx-5">
           <div className="md:px-2 mb-2 flex md:items-center flex-col md:flex-row justify-between gap-2">
-            <h1 className="text-xl text-gray-500">Attendance</h1>
-            <div className="flex gap-2">
+            <h1 className="text-xl text-gray-500">Time Off</h1>
+            <div className="flex flex-wrap gap-2">
               <SearchButton search={search} setSearch={setSearch} />
-              <Link href="/attendance/create">
+              <Link href="/timeoff/create">
                 <button
                   type="button"
-                  className="flex px-2 py-1 items-center bg-white rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
+                  className="flex items-center bg-white rounded-md px-2 py-1 text-gray-500 hover:text-white hover:bg-gray-500"
                 >
                   <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
                   Add
@@ -82,13 +84,13 @@ export default function Attendance() {
                 <tr className="cursor-pointer border border-gray-50 hover:border-gray-300">
                   <th className="p-2 text-left text-gray-500">No</th>
                   <th className="p-2 text-left text-gray-500">Employee</th>
-                  <th className="p-2 text-left text-gray-500">Date</th>
-                  <th className="p-2 text-left text-gray-500">Check in</th>
-                  <th className="p-2 text-left text-gray-500">Check out</th>
+                  <th className="p-2 text-left text-gray-500">Date Start</th>
+                  <th className="p-2 text-left text-gray-500">Date End</th>
+                  <th className="p-2 text-left text-gray-500">Approved</th>
                 </tr>
               </thead>
               <tbody>
-                {attendances.map((attendance, index) => {
+                {timeoffs?.map((timeoff, index) => {
                   return (
                     <tr
                       className={`border ${
@@ -96,24 +98,26 @@ export default function Attendance() {
                           ? "bg-white border-white"
                           : "bg-gray-50 border-gray-50"
                       } cursor-pointer hover:border-gray-300`}
-                      key={attendance.id}
-                      onClick={() => handleRecordClick(attendance.id)}
+                      key={timeoff.id}
+                      onClick={() => handleRecordClick(timeoff.id)}
                     >
                       <td className="p-2 text-gray-500">{index + 1}</td>
                       <td className="p-2 text-gray-500">
                         {
                           state.employees.find(
                             (employee) =>
-                              employee.id === parseInt(attendance.employee)
+                              employee.id === parseInt(timeoff.employee)
                           )?.name
                         }
                       </td>
-                      <td className="p-2 text-gray-500">{attendance.date}</td>
+                      <td className="p-2 text-gray-500">{timeoff.dateStart}</td>
+                      <td className="p-2 text-gray-500">{timeoff.dateEnd}</td>
                       <td className="p-2 text-gray-500">
-                        {attendance.check_in}
-                      </td>
-                      <td className="p-2 text-gray-500">
-                        {attendance.check_out}
+                        {timeoff.approved ? (
+                          <CheckIcon className="w-5 h-5" />
+                        ) : (
+                          <XIcon className="w-5 h-5" />
+                        )}
                       </td>
                     </tr>
                   );

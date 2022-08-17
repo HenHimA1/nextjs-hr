@@ -39,6 +39,11 @@ export default function Navbar() {
           </Link>
         </li>
         <li className="py-2 md:mx-2">
+          <Link href="/timeoff">
+            <a>Time Off</a>
+          </Link>
+        </li>
+        <li className="py-2 md:mx-2">
           <Link href="/login">
             <a>Login</a>
           </Link>

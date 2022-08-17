@@ -2,34 +2,35 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import FormEmployee from "../../components/FormEmployee";
+import FormTimeoff from "../../components/FormTimeoff";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 
-export default function CreateEmployee() {
+export default function CreateTimeoff() {
   const router = useRouter();
-  const [employeeData, setEmployeeData] = useState({
+  const [timeoffData, setTimeoffData] = useState({
     id: Date.now(),
-    name: "",
-    position: "",
-    age: "",
-    address: "",
+    employee: "",
+    dateStart: "",
+    dateEnd: "",
+    description: "",
+    approved: false,
   });
-  const { dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext();
 
   const handleClickSave = (event) => {
     event.preventDefault();
-    dispatch({ type: "addEmployee", payload: employeeData });
-    router.push(`/employee/view?id=${employeeData.id}`);
+    dispatch({ type: "addTimeoff", payload: timeoffData });
+    router.push(`/timeoff/view?id=${timeoffData.id}`);
   };
 
   const handleClickDiscard = () => {
-    router.push(`/employee`);
+    router.push(`/timeoff`);
   };
 
   const handleChange = (event) => {
-    setEmployeeData({
-      ...employeeData,
+    setTimeoffData({
+      ...timeoffData,
       [event.target.name]: event.target.value,
     });
   };
@@ -37,8 +38,8 @@ export default function CreateEmployee() {
   return (
     <>
       <Head>
-        <title>My Present | Employee</title>
-        <meta name="description" content="Create employee" />
+        <title>My Present | Timeoff</title>
+        <meta name="description" content="Create timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
         <Navbar />
@@ -46,17 +47,18 @@ export default function CreateEmployee() {
         <div className="p-5 md:mx-5">
           <div className="md:px-2 mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
             <h1 className="text-xl text-gray-500">
-              <Link href={"/employee"}>
-                <a className="underline">Employee</a>
+              <Link href={"/timeoff"}>
+                <a className="underline">Timeoff</a>
               </Link>{" "}
-              | Create Employee
+              | Create Timeoff
             </h1>
           </div>
 
-          <FormEmployee
+          <FormTimeoff
             LabelConfirm="Create"
             LabelDiscard="Cancel"
-            employeeData={employeeData}
+            listEmployee={state.employees}
+            timeoffData={timeoffData}
             handleChange={handleChange}
             handleClickDiscard={handleClickDiscard}
             handleClickSave={handleClickSave}

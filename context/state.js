@@ -7,6 +7,8 @@ import {
 } from "react";
 
 import { AppReducer, initialState } from "./reducer";
+import { dummyData } from "./dumyData";
+
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
@@ -15,6 +17,12 @@ export function AppWrapper({ children }) {
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("state"))) {
+      dispatch({
+        type: "initStored",
+        payload: JSON.parse(localStorage.getItem("state")),
+      });
+    } else {
+      localStorage.setItem("state", JSON.stringify(dummyData));
       dispatch({
         type: "initStored",
         payload: JSON.parse(localStorage.getItem("state")),

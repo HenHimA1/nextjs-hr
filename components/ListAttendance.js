@@ -15,33 +15,43 @@ export default function ListAttendance() {
         </tr>
       </thead>
       <tbody>
-        {state.attendances.map((attendance, index) => {
-          return (
-            <tr
-              key={attendance.id}
-              className={`${
-                (index + 1) % 2 == 0 ? "bg-gray-200" : "bg-gray-50"
-              }`}
-            >
-              <td className="p-1 text-left text-gray-700">{index + 1}</td>
-              <td className="p-1 text-left text-gray-700">
-                {state.employees.find(
-                  (employee) => employee.id === parseInt(attendance.employee)
-                ) &&
-                  state.employees.find(
+        {state.attendances
+          .sort((start, end) => {
+            return (
+              new Date(end.date).getTime() -
+              new Date(start.date).getTime()
+            );
+          })
+          .map((attendance, index) => {
+            return (
+              <tr
+                key={attendance.id}
+                className={`${
+                  (index + 1) % 2 == 0 ? "bg-gray-200" : "bg-gray-50"
+                }`}
+              >
+                <td className="p-1 text-left text-gray-700">{index + 1}</td>
+                <td className="p-1 text-left text-gray-700">
+                  {state.employees.find(
                     (employee) => employee.id === parseInt(attendance.employee)
-                  ).name}
-              </td>
-              <td className="p-1 text-left text-gray-700">{attendance.date}</td>
-              <td className="p-1 text-left text-gray-700">
-                {attendance.check_in}
-              </td>
-              <td className="p-1 text-left text-gray-700">
-                {attendance.check_out}
-              </td>
-            </tr>
-          );
-        })}
+                  ) &&
+                    state.employees.find(
+                      (employee) =>
+                        employee.id === parseInt(attendance.employee)
+                    ).name}
+                </td>
+                <td className="p-1 text-left text-gray-700">
+                  {attendance.date}
+                </td>
+                <td className="p-1 text-left text-gray-700">
+                  {attendance.check_in}
+                </td>
+                <td className="p-1 text-left text-gray-700">
+                  {attendance.check_out}
+                </td>
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );

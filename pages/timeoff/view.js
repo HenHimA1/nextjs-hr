@@ -4,44 +4,44 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
+import SpanBooleanField from "../../components/SpanBooleanField";
 import SpanTextField from "../../components/SpanTextField";
 import useAppContext from "../../context/state";
 
-export default function ViewAttendance() {
+export default function ViewTimeoff() {
   const router = useRouter();
-  const [attendanceData, setAttendanceData] = useState({
+  const [timeoffData, setTimeoffData] = useState({
     id: "",
     employee: "",
-    date: "",
-    check_in: "",
-    check_out: "",
+    dateStart: "",
+    dateEnd: "",
+    description: "",
+    approved: false,
   });
   const { state, dispatch } = useAppContext();
 
   const { id } = router.query;
 
   const handleClickEdit = () => {
-    router.push(`/attendance/edit?id=${id}`);
+    router.push(`/timeoff/edit?id=${id}`);
   };
 
   const handleClickDelete = () => {
-    dispatch({ type: "removeAttendance", payload: parseInt(id) });
-    router.push(`/attendance`);
+    dispatch({ type: "removeTimeoff", payload: parseInt(id) });
+    router.push(`/timeoff`);
   };
 
   useEffect(() => {
-    if (id && state.attendances.find((value) => value.id === parseInt(id))) {
-      setAttendanceData(
-        state.attendances.find((value) => value.id === parseInt(id))
-      );
+    if (id && state.timeoffs.find((value) => value.id === parseInt(id))) {
+      setTimeoffData(state.timeoffs.find((value) => value.id == id));
     }
   }, [router, state]);
 
   return (
     <>
       <Head>
-        <title>My Present | Attendance</title>
-        <meta name="description" content="Access attendance" />
+        <title>My Present | Timeoff</title>
+        <meta name="description" content="View timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
         <Navbar />
@@ -49,10 +49,10 @@ export default function ViewAttendance() {
         <div className="p-5 md:mx-5">
           <div className="md:px-2 mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
             <h1 className="text-xl text-gray-500">
-              <Link href={"/attendance"}>
-                <a className="underline">Attendance</a>
+              <Link href={"/timeoff"}>
+                <a className="underline">Timeoff</a>
               </Link>{" "}
-              | {attendanceData.id}
+              | {timeoffData.id}
             </h1>
           </div>
 
@@ -61,19 +61,23 @@ export default function ViewAttendance() {
               label="Employee"
               value={
                 state.employees.find(
-                  (employee) =>
-                    employee.id === parseInt(attendanceData.employee)
+                  (employee) => employee.id === parseInt(timeoffData.employee)
                 )?.name
               }
-              href={`/employee/view?id=${attendanceData.employee}`}
+              href={`/employee/view?id=${timeoffData.employee}`}
             />
-            <SpanTextField label="Date" value={attendanceData.date} />
-            <SpanTextField label="Check in" value={attendanceData.check_in} />
-            <SpanTextField label="Check out" value={attendanceData.check_out} />
-            <div className="flex pb-2 gap-2">
+            <SpanTextField label="Date Start" value={timeoffData.dateStart} />
+            <SpanTextField label="Date End" value={timeoffData.dateEnd} />
+            <SpanTextField
+              label="Description"
+              value={timeoffData.description}
+            />
+            <SpanBooleanField label="Approved" value={timeoffData.approved} />
+
+            <div className="flex gap-2 pb-2">
               <button
                 type="button"
-                className="flex p-2 items-center bg-white rounded-md border border-gray-500 text-gray-500 hover:text-white hover:bg-gray-500"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
                 onClick={() => handleClickEdit()}
               >
                 <PencilIcon className="w-5 h-5 mr-2 inline" />
@@ -81,7 +85,7 @@ export default function ViewAttendance() {
               </button>
               <button
                 type="button"
-                className="flex p-2 items-center bg-white rounded-md border border-gray-500 text-gray-500 hover:text-white hover:bg-gray-500"
+                className="flex p-2 items-center bg-white border border-gray-500 rounded-md text-gray-500 hover:text-white hover:bg-gray-500"
                 onClick={() => handleClickDelete()}
               >
                 <TrashIcon className="w-5 h-5 mr-2 inline" />

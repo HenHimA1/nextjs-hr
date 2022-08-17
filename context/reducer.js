@@ -1,6 +1,7 @@
 export const initialState = {
-  employees: [],
   attendances: [],
+  employees: [],
+  timeoffs: [],
 };
 
 export const AppReducer = (state, action) => {
@@ -51,6 +52,22 @@ export const AppReducer = (state, action) => {
         (value) => value.id !== action.payload
       );
       return { ...state, attendances: currentAttendances };
+
+    case "addTimeoff":
+      return {
+        ...state,
+        timeoffs: [...state.timeoffs, action.payload],
+      };
+
+    case "updateTimeoff":
+      let timeoffIndex = state.timeoffs.findIndex(
+        (timeoff) => timeoff.id === action.payload.id
+      );
+      state.timeoffs[timeoffIndex] = action.payload;
+      return {
+        ...state,
+        timeoffs: state.timeoffs,
+      };
 
     default:
       return state;
