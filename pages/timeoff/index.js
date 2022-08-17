@@ -56,7 +56,7 @@ export default function Timeoff() {
   return (
     <>
       <Head>
-        <title>My Present | Timeoff</title>
+        <title>My Present | Time Off</title>
         <meta name="description" content="Access timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">

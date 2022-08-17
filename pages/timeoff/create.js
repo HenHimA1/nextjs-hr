@@ -38,7 +38,7 @@ export default function CreateTimeoff() {
   return (
     <>
       <Head>
-        <title>My Present | Timeoff</title>
+        <title>My Present | Time Off</title>
         <meta name="description" content="Create timeoff" />
       </Head>
       <div className="bg-gray-100 w-screen h-screen">
@@ -48,7 +48,7 @@ export default function CreateTimeoff() {
           <div className="md:px-2 mb-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
             <h1 className="text-xl text-gray-500">
               <Link href={"/timeoff"}>
-                <a className="underline">Timeoff</a>
+                <a className="underline">Time Off</a>
               </Link>{" "}
               | Create Timeoff
             </h1>

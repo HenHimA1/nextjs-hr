@@ -61,7 +61,7 @@ export const dummyData = {
       dateStart: moment().add(31, "days").format("YYYY-MM-DD"),
       dateEnd: moment().add(32, "days").format("YYYY-MM-DD"),
       description: "Sick",
-      approved: false,
+      approved: true,
     },
     {
       id: moment().unix() + 1,
@@ -69,8 +69,7 @@ export const dummyData = {
       dateStart: moment().subtract(7, "days").format("YYYY-MM-DD"),
       dateEnd: moment().subtract(6, "days").format("YYYY-MM-DD"),
       description: "Legal Leave",
-      approved: true,
+      approved: false,
     },
   ],
 };
-
