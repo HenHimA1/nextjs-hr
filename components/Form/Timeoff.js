@@ -1,6 +1,6 @@
 import { SaveAsIcon, XIcon } from "@heroicons/react/solid";
-import InputTextField from "../InputTextField";
-import InputSelectField from "../InputSelectField";
+import InputTextField from "../Input/TextField";
+import InputSelectField from "../Input/SelectField";
 
 export default function FormTimeoff({
   LabelConfirm,

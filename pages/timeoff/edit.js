@@ -18,16 +18,14 @@ export default function EditTimeoff() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickSave = (event) => {
     event.preventDefault();
     dispatch({ type: "updateTimeoff", payload: timeoffData });
-    router.push(`/timeoff/view?id=${id}`);
+    router.push(`/timeoff/view?id=${timeoffData.id}`);
   };
 
   const handleClickDiscard = () => {
-    router.push(`/timeoff/view?id=${id}`);
+    router.push(`/timeoff/view?id=${timeoffData.id}`);
   };
 
   const handleChange = (e) => {
@@ -38,6 +36,8 @@ export default function EditTimeoff() {
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.timeoffs) {
       let currentTimeoff = state.timeoffs.find((value) => value.id == id);
 

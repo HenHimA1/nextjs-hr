@@ -1,5 +1,5 @@
 import { SaveAsIcon, XIcon } from "@heroicons/react/solid";
-import InputTextField from "../InputTextField";
+import InputTextField from "../Input/TextField";
 
 export default function FormEmployee({
   LabelConfirm,

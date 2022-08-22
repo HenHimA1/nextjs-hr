@@ -1,24 +1,18 @@
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
-import { CheckIcon, PlusCircleIcon, XIcon } from "@heroicons/react/solid";
+import { PlusCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import SearchButton from "../../components/SearchButton";
 import { useEffect, useState } from "react";
-import SpanBooleanField from "../../components/SpanBooleanField";
+import ListTimeoff from "../../components/List/Timeoff";
 
 export default function Timeoff() {
-  const router = useRouter();
   const { state } = useAppContext();
 
   const [search, setSearch] = useState("");
   const [employees, setEmployees] = useState([]);
   const [timeoffs, setTimeoffs] = useState([]);
-
-  const handleRecordClick = (id) => {
-    router.push(`/timeoff/view?id=${id}`);
-  };
 
   useEffect(() => {
     if (search) {
@@ -51,7 +45,7 @@ export default function Timeoff() {
           );
         })
     );
-  }, [employees]);
+  }, [employees, state]);
 
   return (
     <>
@@ -71,7 +65,7 @@ export default function Timeoff() {
                   type="button"
                   className="flex items-center bg-white rounded-md px-2 py-1 text-gray-500 hover:text-white hover:bg-gray-500"
                 >
-                  <PlusCircleIcon className="w-5 h-5 text-blue-500 mr-2 inline" />
+                  <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
                   Add
                 </button>
               </Link>
@@ -79,51 +73,7 @@ export default function Timeoff() {
           </div>
 
           <div className="overflow-auto">
-            <table className="w-full rounded whitespace-nowrap">
-              <thead className="bg-gray-50">
-                <tr className="cursor-pointer border border-gray-50 hover:border-gray-300">
-                  <th className="p-2 text-left text-gray-500">No</th>
-                  <th className="p-2 text-left text-gray-500">Employee</th>
-                  <th className="p-2 text-left text-gray-500">Date Start</th>
-                  <th className="p-2 text-left text-gray-500">Date End</th>
-                  <th className="p-2 text-left text-gray-500">Approved</th>
-                </tr>
-              </thead>
-              <tbody>
-                {timeoffs?.map((timeoff, index) => {
-                  return (
-                    <tr
-                      className={`border ${
-                        (index + 1) % 2
-                          ? "bg-white border-white"
-                          : "bg-gray-50 border-gray-50"
-                      } cursor-pointer hover:border-gray-300`}
-                      key={timeoff.id}
-                      onClick={() => handleRecordClick(timeoff.id)}
-                    >
-                      <td className="p-2 text-gray-500">{index + 1}</td>
-                      <td className="p-2 text-gray-500">
-                        {
-                          state.employees.find(
-                            (employee) =>
-                              employee.id === parseInt(timeoff.employee)
-                          )?.name
-                        }
-                      </td>
-                      <td className="p-2 text-gray-500">{timeoff.dateStart}</td>
-                      <td className="p-2 text-gray-500">{timeoff.dateEnd}</td>
-                      <td className="p-2 text-gray-500">
-                        {timeoff.approved ? (
-                          <CheckIcon className="w-5 h-5 text-green-500" />
-                        ) : (
-                          <XIcon className="w-5 h-5 text-red-500" />
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <ListTimeoff timeoffs={timeoffs} employees={state.employees} />
           </div>
         </div>
       </div>

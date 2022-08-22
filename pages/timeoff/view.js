@@ -20,8 +20,6 @@ export default function ViewTimeoff() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickApprove = () => {
     dispatch({
       type: "updateTimeoff",
@@ -30,15 +28,17 @@ export default function ViewTimeoff() {
   };
 
   const handleClickEdit = () => {
-    router.push(`/timeoff/edit?id=${id}`);
+    router.push(`/timeoff/edit?id=${timeoffData.id}`);
   };
 
   const handleClickDelete = () => {
-    dispatch({ type: "removeTimeoff", payload: parseInt(id) });
+    dispatch({ type: "removeTimeoff", payload: parseInt(timeoffData.id) });
     router.push(`/timeoff`);
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.timeoffs.find((value) => value.id === parseInt(id))) {
       setTimeoffData(state.timeoffs.find((value) => value.id == id));
     }

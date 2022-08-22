@@ -3,21 +3,16 @@ import useAppContext from "../../context/state";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import SearchButton from "../../components/SearchButton";
+import ListAttendance from "../../components/List/Attendance";
 
 export default function Attendance() {
-  const router = useRouter();
   const { state } = useAppContext();
 
   const [search, setSearch] = useState("");
   const [employees, setEmployees] = useState([]);
   const [attendances, setAttendances] = useState([]);
-
-  const handleRecordClick = (id) => {
-    router.push(`/attendance/view?id=${id}`);
-  };
 
   useEffect(() => {
     if (search) {
@@ -49,7 +44,7 @@ export default function Attendance() {
           return new Date(end.date).getTime() - new Date(start.date).getTime();
         })
     );
-  }, [employees]);
+  }, [employees, state]);
 
   return (
     <>
@@ -77,49 +72,7 @@ export default function Attendance() {
           </div>
 
           <div className="overflow-auto">
-            <table className="w-full rounded whitespace-nowrap">
-              <thead className="bg-gray-50">
-                <tr className="cursor-pointer border border-gray-50 hover:border-gray-300">
-                  <th className="p-2 text-left text-gray-500">No</th>
-                  <th className="p-2 text-left text-gray-500">Employee</th>
-                  <th className="p-2 text-left text-gray-500">Date</th>
-                  <th className="p-2 text-left text-gray-500">Check in</th>
-                  <th className="p-2 text-left text-gray-500">Check out</th>
-                </tr>
-              </thead>
-              <tbody>
-                {attendances.map((attendance, index) => {
-                  return (
-                    <tr
-                      className={`border ${
-                        (index + 1) % 2
-                          ? "bg-white border-white"
-                          : "bg-gray-50 border-gray-50"
-                      } cursor-pointer hover:border-gray-300`}
-                      key={attendance.id}
-                      onClick={() => handleRecordClick(attendance.id)}
-                    >
-                      <td className="p-2 text-gray-500">{index + 1}</td>
-                      <td className="p-2 text-gray-500">
-                        {
-                          state.employees.find(
-                            (employee) =>
-                              employee.id === parseInt(attendance.employee)
-                          )?.name
-                        }
-                      </td>
-                      <td className="p-2 text-gray-500">{attendance.date}</td>
-                      <td className="p-2 text-gray-500">
-                        {attendance.check_in}
-                      </td>
-                      <td className="p-2 text-gray-500">
-                        {attendance.check_out}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <ListAttendance attendances={attendances} employees={state.employees} />
           </div>
         </div>
       </div>

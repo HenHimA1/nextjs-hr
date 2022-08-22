@@ -18,18 +18,18 @@ export default function ViewEmployee() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickEdit = () => {
-    router.push(`/employee/edit?id=${id}`);
+    router.push(`/employee/edit?id=${employeeData.id}`);
   };
 
   const handleClickDelete = () => {
-    dispatch({ type: "removeEmployee", payload: parseInt(id) });
+    dispatch({ type: "removeEmployee", payload: parseInt(employeeData.id) });
     router.push(`/employee`);
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.employees) {
       let currentEmployee = state.employees.find((value) => value.id == id);
 

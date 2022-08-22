@@ -18,18 +18,18 @@ export default function ViewAttendance() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickEdit = () => {
-    router.push(`/attendance/edit?id=${id}`);
+    router.push(`/attendance/edit?id=${attendanceData.id}`);
   };
 
   const handleClickDelete = () => {
-    dispatch({ type: "removeAttendance", payload: parseInt(id) });
+    dispatch({ type: "removeAttendance", payload: parseInt(attendanceData.id) });
     router.push(`/attendance`);
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.attendances) {
       let currentAttendance = state.attendances.find(
         (value) => value.id === parseInt(id)

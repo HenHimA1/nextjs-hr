@@ -3,13 +3,14 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import InputSelectField from "../../components/InputSelectField";
-import InputTextField from "../../components/InputTextField";
+import InputSelectField from "../../components/Input/SelectField";
+import InputTextField from "../../components/Input/TextField";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 
 export default function EditAttendance() {
   const router = useRouter();
+
   const [attendanceData, setAttendanceData] = useState({
     id: "",
     employee: "",
@@ -19,16 +20,14 @@ export default function EditAttendance() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickSave = (event) => {
     event.preventDefault();
     dispatch({ type: "updateAttendance", payload: attendanceData });
-    router.push(`/attendance/view?id=${id}`);
+    router.push(`/attendance/view?id=${attendanceData.id}`);
   };
 
   const handleClickDiscard = () => {
-    router.push(`/attendance/view?id=${id}`);
+    router.push(`/attendance/view?id=${attendanceData.id}`);
   };
 
   const handleChange = (e) => {
@@ -39,6 +38,8 @@ export default function EditAttendance() {
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.attendances) {
       let currentAttendance = state.attendances.find((value) => value.id == id);
 

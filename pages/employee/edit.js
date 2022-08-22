@@ -17,16 +17,14 @@ export default function EditEmployee() {
   });
   const { state, dispatch } = useAppContext();
 
-  const { id } = router.query;
-
   const handleClickSave = (event) => {
     event.preventDefault();
     dispatch({ type: "updateEmployee", payload: employeeData });
-    router.push(`/employee/view?id=${id}`);
+    router.push(`/employee/view?id=${employeeData.id}`);
   };
 
   const handleClickDiscard = () => {
-    router.push(`/employee/view?id=${id}`);
+    router.push(`/employee/view?id=${employeeData.id}`);
   };
 
   const handleChange = (event) => {
@@ -37,6 +35,8 @@ export default function EditEmployee() {
   };
 
   useEffect(() => {
+    const { id } = router.query;
+
     if (id && state.employees) {
       let currentEmployee = state.employees.find((value) => value.id == id);
 

@@ -1,11 +1,13 @@
 import Head from "next/head";
-import ListAttendance from "../components/ListAttendance";
-import ListEmployee from "../components/ListEmployee";
+import ListAttendance from "../components/List/Attendance";
+import ListEmployee from "../components/List/Employee";
+import ListTimeoff from "../components/List/Timeoff";
 import Navbar from "../components/Navbar";
 import useAppContext from "../context/state";
 
 export default function Home() {
   const { state } = useAppContext();
+  
   return (
     <>
       <Head>
@@ -21,7 +23,7 @@ export default function Home() {
                 <h1 className="text-xl text-gray-500">List Employee</h1>
               </div>
               <div className="overflow-auto">
-                <ListEmployee state={state} />
+                <ListEmployee employees={state.employees} />
               </div>
             </div>
             <div className="bg-white p-2 h-72 flex flex-col">
@@ -29,7 +31,15 @@ export default function Home() {
                 <h1 className="text-xl text-gray-500">List Attendance</h1>
               </div>
               <div className="overflow-auto">
-                <ListAttendance state={state} />
+                <ListAttendance attendances={state.attendances} employees={state.employees} />
+              </div>
+            </div>
+            <div className="bg-white p-2 h-72 flex flex-col">
+              <div className="pb-2">
+                <h1 className="text-xl text-gray-500">List Time Off</h1>
+              </div>
+              <div className="overflow-auto">
+                <ListTimeoff employees={state.employees} timeoffs={state.timeoffs} />
               </div>
             </div>
           </div>
