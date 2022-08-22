@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import FormTimeoff from "../../components/FormTimeoff";
+import FormTimeoff from "../../components/Form/Timeoff";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 

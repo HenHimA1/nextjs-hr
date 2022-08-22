@@ -1,12 +1,10 @@
 import { SaveAsIcon, XIcon } from "@heroicons/react/solid";
-import InputTextField from "./InputTextField";
-import InputSelectField from "./InputSelectField";
+import InputTextField from "../InputTextField";
 
-export default function FormTimeoff({
+export default function FormEmployee({
   LabelConfirm,
   LabelDiscard,
-  listEmployee,
-  timeoffData,
+  employeeData,
   handleChange,
   handleClickSave,
   handleClickDiscard,
@@ -16,40 +14,35 @@ export default function FormTimeoff({
       onSubmit={(event) => handleClickSave(event)}
       className="px-2 pt-2 bg-white rounded-lg"
     >
-      <InputSelectField
-        label="Employee"
-        name="employee"
-        listOption={listEmployee}
+      <InputTextField
+        label="Name"
+        name="name"
         onChange={handleChange}
-        value={timeoffData.employee}
+        value={employeeData.name}
         className="grid-cols-2"
         required="required"
       />
       <InputTextField
-        label="Date Start"
-        name="dateStart"
-        type="date"
+        label="Position"
+        name="position"
         onChange={handleChange}
-        value={timeoffData.dateStart}
+        value={employeeData.position}
         className="grid-cols-2"
         required="required"
       />
       <InputTextField
-        label="Date End"
-        name="dateEnd"
-        type="date"
+        label="Age"
+        name="age"
         onChange={handleChange}
-        value={timeoffData.dateEnd}
+        value={employeeData.age}
         className="grid-cols-2"
-        required="required"
       />
       <InputTextField
-        label="Description"
-        name="description"
+        label="Address"
+        name="address"
         onChange={handleChange}
-        value={timeoffData.description}
+        value={employeeData.address}
         className="grid-cols-2"
-        required="required"
       />
       <div className="flex pb-2 gap-2">
         <button

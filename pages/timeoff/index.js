@@ -71,7 +71,7 @@ export default function Timeoff() {
                   type="button"
                   className="flex items-center bg-white rounded-md px-2 py-1 text-gray-500 hover:text-white hover:bg-gray-500"
                 >
-                  <PlusCircleIcon className="w-5 h-5 mr-2 inline" />
+                  <PlusCircleIcon className="w-5 h-5 text-blue-500 mr-2 inline" />
                   Add
                 </button>
               </Link>
@@ -114,9 +114,9 @@ export default function Timeoff() {
                       <td className="p-2 text-gray-500">{timeoff.dateEnd}</td>
                       <td className="p-2 text-gray-500">
                         {timeoff.approved ? (
-                          <CheckIcon className="w-5 h-5" />
+                          <CheckIcon className="w-5 h-5 text-green-500" />
                         ) : (
-                          <XIcon className="w-5 h-5" />
+                          <XIcon className="w-5 h-5 text-red-500" />
                         )}
                       </td>
                     </tr>

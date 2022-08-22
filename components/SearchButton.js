@@ -27,7 +27,7 @@ export default function SearchButton({ search, setSearch }) {
           }}
           type="submit"
         >
-          <SearchIcon className="w-6 h-6" />
+          <SearchIcon className="w-6 h-6 text-gray-500" />
         </button>
       </span>
     </form>

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import FormEmployee from "../../components/FormEmployee";
+import FormEmployee from "../../components/Form/Employee";
 import Navbar from "../../components/Navbar";
 import useAppContext from "../../context/state";
 
